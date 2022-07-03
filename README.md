@@ -131,5 +131,251 @@ Selanjutnya refresh tampilan pada alamat http://localhost:8080/about
 ![lab11web](img/selesai.png)
 
 
-## Lab 11 (lanjutan)
+## Praktikum 12: Framework Lanjutan (CRUD)
+
+##  Langkah-langkah Praktikum
+
+## Membuat Database
+
+![p](img/1.png)
+
+## Membuat tabel
+![p](img/membuattabel.png)
+
+## Konfigurasi koneksi database
+Selanjutnya membuat konfigurasi untuk menghubungkan dengan database server. 
+Konfigurasi dapat dilakukan dengan du acara, yaitu pada file app/config/database.php
+atau menggunakan file .env. Pada praktikum ini kita gunakan konfigurasi pada file .env. 
+![p](img/konfigurasi.png)
+
+## membuat model
+Selanjutnya adalah membuat Model untuk memproses data Artikel. Buat file baru pada 
+direktori app/Models dengan nama ArtikelModel.php
+
+![p](img/membuatmodel.png)
+
+## Membuat Controller
+Buat Controller baru dengan nama Artikel.php pada direktori app/Controllers.
+![p](img/controler.png)
+
+## Membuat View
+Buat direktori baru dengan nama artikel pada direktori app/views, kemudian buat file 
+baru dengan nama index.php. 
+
+![p](img/view.png)
+
+Selanjutnya buka browser kembali, dengan mengakses url http://localhost:8080/artikel
+
+![p](img/hasilview.png)
+
+Belum ada data yang diampilkan. Kemudian coba tambahkan beberapa data pada 
+database agar dapat ditampilkan datanya.
+
+![p](img/tambahdata.png)
+
+Refresh kembali browser, sehingga akan ditampilkan hasilnya.
+
+![p](img/tambahdata1.png)
+
+## Membuat Tampilan Detail Artikel
+Tampilan pada saat judul berita di klik maka akan diarahkan ke halaman yang berbeda. 
+Tambahkan fungsi baru pada Controller Artikel dengan nama view().
+
+![p](img/view.png)
+
+## Membuat View Detail
+Buat view baru untuk halaman detail dengan nama app/views/artikel/detail.php.
+![p](img/detailphp.png)
+
+## Membuat Routing untuk artikel detail
+Buka Kembali file app/config/Routes.php, kemudian tambahkan routing untuk artikel 
+detail
+
+<em>$routes->get('/artikel/(:any)', 'Artikel::view/$1');</em>
+
+![p](img/artikelpertama.png)
+
+## Membuat Menu Admin
+Menu admin adalah untuk proses CRUD data artikel. Buat method baru pada 
+Controller Artikel dengan nama admin_index(). 
+![p](img/adminindex.png)
+
+Selanjutnya buat view untuk tampilan admin dengan nama admin_index.php
+![p](img/adminindex1.png)
+
+Tambahkan routing untuk menu admin seperti berikut:
+
+<strong>
+$routes->group('admin', function($routes) {
+$routes->get('artikel', 'Artikel::admin_index');
+$routes->add('artikel/add', 'Artikel::add');
+$routes->add('artikel/edit/(:any)', 'Artikel::edit/$1');
+$routes->get('artikel/delete/(:any)', 'Artikel::delete/$1');
+});
+
+</strong>
+<br>
+
+Akses menu admin dengan url http://localhost:8080/admin/artikel
+![p](img/per12.png)
+
+## Menambah Data Artikel
+Tambahkan fungsi/method baru pada Controller Artikel dengan nama add(). 
+
+![p](img/artikeladd.png)
+
+Kemudian buat view untuk form tambah dengan nama form_add.php
+![p](img/fromadd.png)
+
+![p](img/per121.png)
+
+## Mengubah Data
+Tambahkan fungsi/method baru pada Controller Artikel dengan nama edit(). 
+
+![p](img/artikeledit.png)
+
+Kemudian buat view untuk form tambah dengan nama form_edit.php
+
+![p](img/fromedit.png)
+
+![p](img/per122.png)
+
+## Menghapus Data
+Tambahkan fungsi/method baru pada Controller Artikel dengan nama delete().
+
+![p](img/artikeldelet.png)
+
+## Praktikum 13: Framework Lanjutan (Modul Login)
+
+## Langkah-langkah Praktikum
+Persiapan.
+Untuk memulai membuat modul Login, yang perlu disiapkan adalah database server 
+menggunakan MySQL. Pastikan MySQL Server sudah dapat dijalankan melalui 
+XAMPP.
+
+## Membuat Tabel User
+
+![p](img1/tabeluser.png)
+
+## Membuat Model User
+Selanjutnya adalah membuat Model untuk memproses data Login. Buat file baru pada 
+direktori app/Models dengan nama UserModel.php
+
+![p](img1/modeluser.png)
+
+Membuat Controller User
+Buat Controller baru dengan nama User.php pada direktori app/Controllers.
+Kemudian tambahkan method index() untuk menampilkan daftar user, dan method 
+login() untuk proses login.
+
+ ![p](img1/contoleruser.png)
+
+ ## Membuat View Login
+Buat direktori baru dengan nama user pada direktori app/views, kemudian buat file 
+baru dengan nama login.php.
+
+![p](img1/viewlogin.png)
+
+## Membuat Database Seeder
+Database seeder digunakan untuk membuat data dummy. Untuk keperluan ujicoba modul 
+login, kita perlu memasukkan data user dan password kedaalam database. Untuk itu buat 
+database seeder untuk tabel user. Buka CLI, kemudian tulis perintah berikut: <em> php spark make:seeder UserSeeder </em>
+
+Selanjutnya, buka file UserSeeder.php yang berada di lokasi direktori 
+/app/Database/Seeds/UserSeeder.php kemudian isi dengan kode berikut:
+
+![p](img1/databaseseeder.png)
+
+## Uji Coba Login
+Selanjutnya buka url http://localhost:8080/user/login seperti berikut:
+
+![p](img1/login.png)
+
+## Menambahkan Auth Filter
+Selanjutnya membuat filer untuk halaman admin. Buat file baru dengan nama Auth.php
+pada direktori app/Filters. 
+
+![p](img1/authfilter.png)
+
+Selanjutnya buka file app/Config/Filters.php tambahkan kode berikut:
+
+![p](img1/filtersphp.png)
+
+Selanjutnya buka file app/Config/Routes.php dan sesuaikan kodenya.
+
+## Percobaan Akses Menu Admin
+Buka url dengan alamat http://localhost:8080/admin/artikel ketika alamat tersebut 
+diakses maka, akan dimuculkan halaman login. 
+
+![p](img1/login.png)
+
+## Fungsi Logout
+Tambahkan method logout pada Controller User seperti berikut:
+
+![p](img1/logout.png)
+
+
+## Praktikum 14: Pagination dan Pencarian
+
+## Langkah-langkah Praktikum
+Membuat Pagination
+Pagination merupakan proses yang digunakan untuk membatasi tampilan yang panjang 
+dari data yang banyak pada sebuah website. Fungsi pagination adalah memecah 
+tampilan menjadi beberapa halaman tergantung banyaknya data yang akan ditampilkan 
+pada setiap halaman
+
+## membuat pagination 
+Untuk membuat pagination, buka Kembali Controller Artikel, kemudian modifikasi 
+kode pada method admin_index seperti berikut.
+
+![p](img2/adminindex14.png)
+
+Kemudian buka file views/artikel/admin_index.php dan tambahkan kode berikut
+dibawah deklarasi tabel data.
+
+<em><
+?= $pager->links(); ?>
+</em>
+
+Selanjutnya buka kembali menu daftar artikel, tambahkan data lagi untuk melihat 
+hasilnya.
+
+![p](img/per12.png)
+
+## Membuat Pencarian
+Pencarian data digunakan untuk memfilter data.
+Untuk membuat pencarian data, buka kembali Controller Artikel, pada method 
+admin_index ubah kodenya seperti berikut
+
+![p](img2/adminindex14.png)
+
+Kemudian buka kembali file views/artikel/admin_index.php dan tambahkan form 
+pencarian sebelum deklarasi tabel seperti berikut:
+
+![p](img2/frompencarian.png)
+
+Selanjutnya ujicoba dengan membuka kembali halaman admin artikel, masukkan kata 
+kunci tertentu pada form pencarian
+
+![p](img2/per141.png)
+
+## Upload Gambar
+Menambahkan fungsi unggah gambar pada tambah artikel. Buka kembali Controller 
+Artikel, sesuaikan kode pada method add seperti berikut:
+
+![p](img2/uplodgambar.png)
+
+Kemudian pada file views/artikel/form_add.php tambahkan field input file seperti 
+berikut.
+
+![p](img2/add.php.png)
+
+Dan sesuaikan tag form dengan menambahkan ecrypt type seperti berikut.
+
+![p](img2/ecypt.png)
+
+Ujicoba file upload dengan mengakses menu tambah artikel
+
+![p](img2/per14.jpeg)
+
 
